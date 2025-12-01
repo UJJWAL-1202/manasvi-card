@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For Manasvi — From Teddy 🧸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#fff7f6; --accent1:#b86a5b; --accent2:#f6b5a2; --gold:#ffd166;
+  --muted:#7a544f; --txt:#462d29; --card-bg: rgba(255,255,255,0.94);
+}
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; font-family:Poppins,system-ui,Arial; -webkit-font-smoothing:antialiased;}
+body{
+    /* Soft pink background */
+    background: linear-gradient(135deg, #ffe0e0 0%, #ffc0cb 100%);
+    /* New: Hearts pattern */
+    background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.2) 0%, transparent 10%),
+                      radial-gradient(circle at 90% 80%, rgba(255,255,255,0.2) 0%, transparent 10%),
+                      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50 82.5c-15-15-25-27-25-37.5C25 35 32.5 27.5 42.5 27.5c5 0 10 2.5 12.5 7.5 2.5-5 7.5-7.5 12.5-7.5 10 0 17.5 7.5 17.5 17.5 0 10.5-10 22.5-25 37.5z" fill="%23fff" opacity="0.1"/></svg>');
+    background-size: cover, cover, 60px 60px; /* Adjust size of hearts */
+    background-repeat: no-repeat, no-repeat, repeat;
+    color:var(--txt);
+    padding:14px;
+}
+
+
+.wrap{ max-width:980px; margin:0 auto; display:flex; flex-direction:column; gap:16px; align-items:center; }
+.brand{ display:flex; gap:12px; align-items:center; margin-bottom:16px; }
+.teddy{ width:56px; height:56px; border-radius:14px; padding:6px; background:linear-gradient(#fff,#fff7); display:flex; align-items:center; justify-content:center; box-shadow:0 12px 36px rgba(184,106,91,0.08); }
+.title{ font-family:'Playfair Display',serif; color:var(--accent1); font-size:18px; }
+.subtitle{ font-size:12px; color:var(--muted); margin-top:2px; }
+
+.stepCard{ background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.99)); padding:18px; border-radius:14px; box-shadow:0 12px 36px rgba(80,36,30,0.06); border:1px solid rgba(255,255,255,0.7); margin-bottom:20px; transition: opacity 0.4s ease, transform 0.4s ease; }
+.stepCard.hidden{ display:none; opacity:0; transform:translateY(20px); }
+.stepCard.visible{ display:block; opacity:1; transform:translateY(0); }
+.stepCard .btn{ margin-top:12px; width:100%; padding:10px; font-size:14px; border:none; border-radius:10px; background:#f6b5a2; color:#462d29; cursor:pointer; font-weight:600; }
+
+.stage{ perspective:1200px; width:100%; max-width:560px; margin:0 auto; }
+.flipCardWrap{ width:100%; height:420px; position:relative; display:flex; align-items:center; justify-content:center; }
+.card-outer{ width:100%; max-width:520px; height:320px; position:relative; transform-style:preserve-3d; transition: transform 0.7s cubic-bezier(.2,.85,.2,1);}
+.panel{ position:absolute; top:0; bottom:0; width:50%; background: linear-gradient(180deg,#fff,#fff8); border-radius:12px; box-shadow:0 10px 30px rgba(80,36,30,0.06); display:flex; flex-direction:column; justify-content:center; padding:18px; backface-visibility:hidden; border:1px solid rgba(255,255,255,0.6);}
+.panel.right{ right:0; text-align:left; }
+.panel.left{ left:0; text-align:right; }
+.cardClosed .panel.left{ transform:rotateY(0deg); }
+.cardClosed .panel.right{ transform:rotateY(0deg); }
+.cardOpened .panel.left{ transform:rotateY(-110deg); }
+.cardOpened .panel.right{ transform:rotateY(110deg); }
+.cardInner{ position:absolute; inset:12px; border-radius:10px; pointer-events:none; display:flex; align-items:center; justify-content:center;
+  opacity:0; transform:scale(0.98) translateY(6px); transition: opacity 360ms ease, transform 420ms cubic-bezier(.2,.9,.25,1);
+  /* FIXED: Changed background to solid white to prevent overlap */
+  background: #ffffff;
+  box-shadow:0 20px 60px rgba(80,36,30,0.04); padding:18px;
+}
+.cardOpened .cardInner{ pointer-events:auto; opacity:1; transform:scale(1) translateY(0); }
+/* Ensure the inner message box is also fully opaque */
+.messageBox { background: #ffffff; padding: 10px; border-radius: 8px; }
+
+@media (max-width:520px){
+  .card-outer{ height:260px; }
+  .stepCard{ padding:14px; }
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="teddy">🧸</div>
+    <div>
+      <div class="title">For Manasvi — From Teddy</div>
+      <div class="subtitle">Answer gentle questions, then open your card.</div>
+    </div>
+  </div>
+
+  <div id="questionArea"></div>
+
+  <div class="stage">
+    <div class="flipCardWrap">
+      <div id="cardOuter" class="card-outer cardClosed">
+        <div class="panel left">
+          <div style="margin:auto 0;">
+            <div class="miniTitle">To My Favorite Girl</div>
+            <div class="miniSub">Open to read something from Teddy 🧸</div>
+        </div>
+        </div>
+        <div class="panel right">
+          <div style="margin:auto 0;">
+            <div class="miniTitle">Happy Birthday</div>
+            <div class="miniSub">Tap Reveal to open your card ✨</div>
+          </div>
+        </div>
+        <div class="cardInner" id="cardInner">
+          <div class="messageBox" id="messageBox"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+const steps=[
+  {type:'welcome', title:'🎉 Hi Manasvi — ready for a small surprise?', sub:'Teddy made this just for you. Tap Start when you are ready.'},
+  {type:'choice', key:'q1', title:'1 — Tell me gently… are you happy today?', sub:"It's your day. If not, tell Teddy anything.", choices:['Yes, I am 😊','Not really']},
+  {type:'text', key:'wishInput', title:"2 — If a wish could be granted right now… what would you ask?", sub:"Write your one wish."},
+  {type:'long', key:'planInput', title:"3 — What's your plan for today?", sub:"Big or small — tell Teddy."},
+  {type:'long', key:'wantInput', title:"4 — What does your heart really want?", sub:"Dreams, small wishes, or something secret."},
+  {type:'choice-pretty', key:'pretty', title:"5 — Quick question… do you think you are pretty?", sub:"Answer honestly 😉", choices:['Yes — I know 💕','No — not really']},
+  {type:'final', title:'All set — open your message', sub:'Tap Reveal. Read slowly ❤️'}
+];
+let stepIndex=0;
+let answers={};
+
+const questionArea=document.getElementById('questionArea');
+const cardOuter=document.getElementById('cardOuter');
+const cardInner=document.getElementById('cardInner');
+const messageBox=document.getElementById('messageBox');
+
+function renderStep(){
+  const s=steps[stepIndex];
+  let html=`<div class="stepCard visible">
+    <h3 style="margin:0 0 8px 0; font-family:'Playfair Display', serif; color:var(--accent1);">${s.title}</h3>
+    <div style="color:var(--muted); font-size:14px; margin-bottom:12px;">${s.sub}</div>`;
+
+  if(s.type==='welcome'){ html+=`<button class="btn" onclick="nextStep()">Start</button>`; }
+  else if(s.type==='choice'){ 
+    html+=s.choices.map((c,i)=>`<button class="btn" onclick="handleChoice('${s.key}',${i})">${c}</button>`).join('');
+  }
+  else if(s.type==='text'){ // For short, single-line answers (like wishInput)
+    html+=`<input type="text" id="input_${s.key}" style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(0,0,0,0.06); font-size:14px;"/>`;
+    html+=`<button class="btn" onclick="saveAndNext('${s.key}')">Next ➜</button>`;
+  }
+  else if(s.type==='long'){ // For longer, multi-line answers (like planInput, wantInput)
+    html+=`<textarea id="input_${s.key}" style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(0,0,0,0.06); font-size:14px; min-height:110px;"></textarea>`;
+    html+=`<button class="btn" onclick="saveAndNext('${s.key}')">Next ➜</button>`;
+  }
+  else if(s.type==='choice-pretty'){
+    html+=s.choices.map((c,i)=>`<button class="btn" onclick="handlePretty(${i})">${c}</button>`).join('');
+    html+=`<div id="prettyResult" style="margin-top:12px;"></div>`;
+  }
+  else if(s.type==='final'){ html+=`<button class="btn" onclick="triggerReveal()">Reveal ✨</button>`; }
+  html+=`</div>`;
+  questionArea.innerHTML=html;
+}
+
+function nextStep(){ stepIndex++; if(stepIndex>=steps.length) stepIndex=steps.length-1; renderStep(); }
+function handleChoice(key,index){
+  answers[key]=index===0 ? true : false;
+  nextStep();
+}
+function saveAndNext(key){
+  const val=document.getElementById('input_'+key).value.trim();
+  answers[key]=val;
+  nextStep();
+}
+function handlePretty(index){
+  const el=document.getElementById('prettyResult');
+  if(index===0){ answers.pretty=true; el.innerHTML='<div style="padding:8px; border-radius:12px; background:#fff3b0; font-weight:700;">✨ Of course you are pretty — Teddy knows it</div>'; confetti({particleCount:70,spread:70,colors:['#ffd166','#ffdd99','#fff3b0']}); setTimeout(nextStep,900); }
+  else{ alert("Wait — are you sure? You are really pretty 😊"); handlePretty(0); }
+}
+
+function triggerReveal(){
+  messageBox.innerHTML=`<div>
+    <h2>🎉 HAPPY BIRTHDAY MANASVI!! 🎉</h2>
+    <p><strong>Congratulations on turning 15! 💖</strong></p>
+    <p>And first of all… thank you.</p>
+    <p>Thank you for being in my life, because after you entered it, everything changed for the better. I started smiling more, enjoying every little thing — life became so much more interesting and brighter with you in it.</p>
+    <p>It’s not only me — there are many people who feel happier because you exist in their lives. And I just want you to know how truly special you are… how pure and beautiful your heart is.</p>
+    <p>I thank God for creating you, and your parents for giving birth to such a wonderful girl. You deserve all the happiness in this world. Never let any temporary person make you feel otherwise.</p>
+    <p>And remember — you are never alone.</p>
+    <p style="font-weight:700;">I’m always there for you.</p>
+    <p>You are strong, capable, and can achieve anything you want in life.</p>
+    <p>Once again, thank you for being in my life…</p>
+    <p>not as a part of it, but the whole book of it 🧸📖✨</p>
+    <p style="margin-top:12px;font-weight:700;">A very Happy Birthday, Manasvi 🧸✨<br>— Your Teddy 💕</p>
+  </div>`;
+  cardOuter.classList.remove('cardClosed'); cardOuter.classList.add('cardOpened');
+  cardInner.setAttribute('aria-hidden','false');
+  confetti({particleCount:90,spread:90,ticks:180,gravity:0.5,colors:['#ffd166','#ffdd99','#fff3b0']});
+  console.log('Saved answers:',answers);
+}
+
+renderStep();
+</script>
+</body>
+</html>
